@@ -3,11 +3,8 @@
 
 <div class="row">
   <div class="span6 offset3">
-    <%= form_for(@user) do |f| %>
-      <%= render 'fields', f: f, password_confirmation_text: "Confirm Password" %>
-      <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
-    <% end %>
-
+    <%= render 'fields', password_confirmation_text: "Confirm Password", submit_text: "Save changes"%>
+    
     <%= gravatar_for @user %>
     <a href="http://gravatar.com/emails" target="_blank">change</a>
   </div>

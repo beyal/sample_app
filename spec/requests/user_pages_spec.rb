@@ -64,6 +64,31 @@ describe "User pages" do
       it { should have_content(m1.content) }
       it { should have_content(m2.content) }
       it { should have_content(user.microposts.count) }
+      it { should have_content("2 Microposts")}
+
+      describe "Micropost single count" do
+        let(:user2) { FactoryGirl.create(:user) }
+        let!(:m3) { FactoryGirl.create(:micropost, user: user2, content: "Foo") }
+        
+        before { visit user_path(user2) }
+
+        it { should have_content("1 Micropost")}
+        it { should_not have_content("1 Microposts")}
+      end
+
+      describe "pagination" do
+
+        before(:all) { 30.times { FactoryGirl.create(:micropost, user: user, content: "Foo")  } }
+        after(:all)  { user.microposts.delete_all }
+
+        it { should have_selector('div.pagination') }
+
+        it "should list each micropost" do
+          user.microposts.paginate(page: 1).each do |micro|
+            page.should have_selector('li', text: micro.content)
+          end
+        end
+      end      
     end
   end
 

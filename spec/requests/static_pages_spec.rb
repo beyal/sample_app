@@ -31,6 +31,27 @@ describe "Static pages" do
           page.should have_selector("li##{item.id}", text: item.content)
         end
       end
+
+      describe "user should not be able to see delete links of other users microposts" do
+        let(:user2) { FactoryGirl.create(:user) }
+        let!(:m1) { FactoryGirl.create(:micropost, user: user2, content: "Foo") }
+
+        before do
+          visit root_path
+        end
+
+        it { should_not have_selector('href', text: m1.content) }
+      end 
+
+      # describe "user should not be able to delete other users microposts" do
+      #   let(:user2) { FactoryGirl.create(:user) }
+      #   let!(:m1) { FactoryGirl.create(:micropost, user: user2, content: "Foo") }
+
+      #   describe "submitting to the destroy action" do
+      #      before { delete micropost_path(m1) }
+      #       specify { response.should redirect_to(signin_path) }
+
+      # end      
     end    
   end
 

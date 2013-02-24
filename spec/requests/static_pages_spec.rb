@@ -11,11 +11,11 @@ describe "Static pages" do
 
   describe "Home page" do
     before { visit root_path }
-    let(:heading)    { 'Sample App' }
+    let(:heading)    { 'Friggo' }
     let(:page_title) { '' }
 
     it_should_behave_like "all static pages"
-    it { should_not have_selector 'title', text: '| Home' }
+    it { should_not have_selector 'title', text: '| How It Works' }
 
     describe "for signed-in users" do
       let(:user) { FactoryGirl.create(:user) }
@@ -52,24 +52,14 @@ describe "Static pages" do
         end
 
         it { should_not have_selector('href', text: m1.content) }
-      end 
-
-      # describe "user should not be able to delete other users microposts" do
-      #   let(:user2) { FactoryGirl.create(:user) }
-      #   let!(:m1) { FactoryGirl.create(:micropost, user: user2, content: "Foo") }
-
-      #   describe "submitting to the destroy action" do
-      #      before { delete micropost_path(m1) }
-      #       specify { response.should redirect_to(signin_path) }
-
-      # end      
+      end   
     end    
   end
 
-  describe "Help page" do
+  describe "FAQ page" do
     before { visit help_path }
-    let(:heading)    { 'Help' }
-    let(:page_title) { 'Help' }
+    let(:heading)    { 'FAQ' }
+    let(:page_title) { 'FAQ' }
 
     it_should_behave_like "all static pages"
   end
@@ -94,14 +84,14 @@ describe "Static pages" do
     visit root_path
     click_link "About"
     page.should have_selector 'title', text: full_title('About Us')
-    click_link "Help"
-    page.should have_selector 'title', text: full_title('Help')
+    click_link "FAQ"
+    page.should have_selector 'title', text: full_title('FAQ')
     click_link "Contact"
     page.should have_selector 'title', text: full_title('Contact')
-    click_link "Home"
-    click_link "Sign up now!"
+    click_link "Friggo"
+    click_link "Start Selling Now!"
     page.should have_selector 'title', text: full_title('Sign up')
-    click_link "sample app"
+    click_link "How It Works"
     page.should have_selector 'title', text: full_title('')
   end
 end

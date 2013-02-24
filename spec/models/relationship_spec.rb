@@ -4,11 +4,30 @@ describe Relationship do
 
   let(:follower) { FactoryGirl.create(:user) }
   let(:followed) { FactoryGirl.create(:user) }
-  let(:relationship) { follower.relationships.build(followed_id: followed.id) }
+  let!(:relationship) { follower.relationships.build(followed_id: followed.id) }
 
   subject { relationship }
 
   it { should be_valid }
+
+  # describe "should destroy associated relationsships" do
+
+  #   describe "when follower is destroyed" do
+  #     follower_id = follower.id
+  #     follower.destroy
+  #     Relationships.all.each do |relation|
+  #       its(relation.follower_id) { should_not == follower_id }
+  #     end
+  #   end
+
+  #   describe "when followerd user is destroyed" do
+  #     followed_id = followed.id
+  #     followed.destroy
+  #     Relationships.all.each do |relation|
+  #       its(relation.followed_id) { should_not == followed_id }
+  #     end   
+  #   end       
+  # end
 
   describe "accessible attributes" do
     it "should not allow access to follower_id" do
